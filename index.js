@@ -7,7 +7,7 @@ const app = express();
 
 
 app.get('/', (req, res)=> {
-    res.send('Hello world')
+    res.send('Hey guys!')
 } )
 
 app.listen(PORT, ()=> console.log(`Server is running on port: ${PORT}`))
