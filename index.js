@@ -1,11 +1,23 @@
 import express from 'express';
 import cors from 'cors';
 import logger from 'morgan';
+import mongoose from "mongoose";
+import dotenv from "dotenv"
 
 import contactsRouter from './routes/api/contacts-router.js'
 
-const PORT = 5000
-const app = express();
+dotenv.config()
+
+const {DB_HOST, PORT=5000} = process.env;
+
+mongoose.connect(DB_HOST).then(()=> {
+    app.listen(PORT, ()=> console.log(`Server is running on port: ${PORT}`))
+}).catch((e)=> {
+    console.log(e.message);
+    process.exit(1)
+})
+
+export const app = express();
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
 app.use(cors())
@@ -23,4 +35,3 @@ app.use((err, req, res, next)=> {
     res.status(status).json({message})
 })
 
-app.listen(PORT, ()=> console.log(`Server is running on port: ${PORT}`))
