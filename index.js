@@ -2,11 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import logger from 'morgan';
 import mongoose from "mongoose";
-import dotenv from "dotenv"
+import "dotenv/config"
 
 import contactsRouter from './routes/api/contacts-router.js'
-
-dotenv.config()
+import authRouter from './routes/api/auth-router.js'
 
 const {DB_HOST, PORT=5000} = process.env;
 
@@ -25,6 +24,7 @@ app.use(logger(formatsLogger))
 app.use(express.json())
 
 app.use('/api/contacts', contactsRouter)
+app.use('/api/auth', authRouter)
 
 app.use((req, res)=> {
     res.status(400).json({message: 'Not found!'})
