@@ -1,5 +1,7 @@
-import {HttpError} from "../helpers/index.js"
+import {HttpError, cloudinary} from "../helpers/index.js"
 import Contact from "../models/Contact.js";
+import fs from 'fs/promises';
+import path from 'path';
 
 import {ctrlWrapper} from "../decorators/index.js";
 
@@ -42,9 +44,28 @@ const getById = async(req, res) => {
 const add = async(req, res) => {
         const {_id: owner} = req.user;
 
-        const result = await Contact.create({...req.body, owner})
+        const {path: oldPath, filename} = req.file;
+
+        const {url: avatar} = await cloudinary.uploader.upload(oldPath, {
+            folder: "avatars"
+        });
+
+        await fs.unlink(oldPath);
+
+        // Static files from public
+        // const avatarsPath = path.resolve('public', 'avatars');
+        //
+        // const newPath = path.join(avatarsPath, filename);
+        //
+        // await fs.rename(oldPath, newPath);
+        //
+        // const avatar = path.join('avatars', filename);
+
+        const result = await Contact.create({...req.body, avatar, owner})
 
         res.status(201).json(result)
+
+
 }
 
 const removeById = async(req, res) => {

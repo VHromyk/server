@@ -8,8 +8,8 @@ import {ctrlWrapper} from "../decorators/index.js";
 const {JWT_SECRET_ACCESS, JWT_SECRET_REFRESH} = process.env;
 
 function createTokens(payload) {
-    const accessToken = jwt.sign(payload, JWT_SECRET_ACCESS, {expiresIn: '15m'});
-    const refreshToken = jwt.sign(payload, JWT_SECRET_REFRESH, {expiresIn: '15m'});
+    const accessToken = jwt.sign(payload, JWT_SECRET_ACCESS, {expiresIn: '5d'});
+    const refreshToken = jwt.sign(payload, JWT_SECRET_REFRESH, {expiresIn: '30d'});
 
     return {accessToken, refreshToken};
 }
