@@ -19,6 +19,14 @@ const userSchema = new Schema({
         required: true,
         minLength: 6
     },
+    verify: {
+        type: Boolean,
+        default: false,
+    },
+    verificationCode: {
+        type: String,
+
+    },
     accessToken: {
         type: String,
     },

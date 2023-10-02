@@ -11,12 +11,15 @@
     "start": "cross-env NODE_ENV=production node server.js",
     "start:dev": "cross-env NODE_ENV=development node-dev server.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "start:test": "node-dev testing/index.js"
+    "start:test": "node-dev testing/index.js",
+    "start:elastic": "node post-senders/elastic-sender/index.js",
+    "start:nodemailer": "node post-senders/nodemailer/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@elasticemail/elasticemail-client": "^4.0.23",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.41.0",
     "cors": "^2.8.5",
@@ -29,6 +32,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nanoid": "^5.0.1",
+    "nodemailer": "^6.9.5",
     "supertest": "^6.3.3"
   },
   "devDependencies": {

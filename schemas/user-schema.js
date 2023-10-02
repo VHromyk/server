@@ -15,3 +15,7 @@ export const userSigninSchema = Joi.object({
 export const userRefreshTokenSchema = Joi.object({
     refreshToken: Joi.string().required()
 })
+
+export const verifyUserSchema = Joi.object({
+    email: Joi.string().required().pattern(emailRegex),
+})
